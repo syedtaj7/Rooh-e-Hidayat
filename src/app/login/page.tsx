@@ -7,8 +7,11 @@ import { useRouter } from "next/navigation";
 import Link from "next/link";
 import { FaGoogle, FaEnvelope, FaLock } from "react-icons/fa";
 
+import { useAuth } from "@/context/auth-context";
+
 export default function LoginPage() {
     const router = useRouter();
+    const { login } = useAuth();
     const [loading, setLoading] = useState(false);
     const [success, setSuccess] = useState(false);
 
@@ -17,6 +20,7 @@ export default function LoginPage() {
         setLoading(true);
         // Simulate auth
         setTimeout(() => {
+            login({ name: "Hamza", email: "hamza@example.com" });
             setLoading(false);
             setSuccess(true);
             setTimeout(() => router.push("/dashboard"), 1000);
@@ -24,12 +28,7 @@ export default function LoginPage() {
     };
 
     return (
-        <div className="min-h-screen flex items-center justify-center relative overflow-hidden bg-slate-50">
-            {/* Background Decor */}
-            <div className="absolute top-0 left-0 w-full h-full overflow-hidden pointer-events-none">
-                <div className="absolute top-[-10%] left-[-10%] w-[40%] h-[40%] bg-primary/20 rounded-full blur-3xl opacity-50" />
-                <div className="absolute bottom-[-10%] right-[-10%] w-[40%] h-[40%] bg-accent/20 rounded-full blur-3xl opacity-50" />
-            </div>
+        <div className="min-h-screen flex items-center justify-center relative overflow-hidden">
 
             <motion.div
                 initial={{ opacity: 0, y: 30 }}
@@ -106,7 +105,21 @@ export default function LoginPage() {
                         </div>
 
                         <div className="mt-6 flex justify-center">
-                            <button className="flex items-center gap-2 px-6 py-2 border border-secondary rounded-lg hover:bg-secondary/20 transition-colors">
+                            <button
+                                type="button"
+                                onClick={() => {
+                                    setLoading(true);
+                                    // Simulate Google auth
+                                    setTimeout(() => {
+                                        login({ name: "Hamza (Google)", email: "hamza.google@example.com" });
+                                        setLoading(false);
+                                        setSuccess(true);
+                                        setTimeout(() => router.push("/dashboard"), 1000);
+                                    }, 1500);
+                                }}
+                                disabled={loading || success}
+                                className="flex items-center gap-2 px-6 py-2 border border-secondary rounded-lg hover:bg-secondary/20 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+                            >
                                 <FaGoogle className="text-foreground" />
                                 <span className="text-sm font-medium">Google</span>
                             </button>

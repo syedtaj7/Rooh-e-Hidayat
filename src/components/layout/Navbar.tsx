@@ -6,14 +6,14 @@ import { motion, AnimatePresence } from "framer-motion";
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/Button";
 import { ThemeToggle } from "@/components/layout/ThemeToggle";
-import { FaBars, FaTimes } from "react-icons/fa";
+import { FaBars, FaTimes, FaUser } from "react-icons/fa";
+import { useAuth } from "@/context/auth-context";
 
 const navLinks = [
     { name: "Home", href: "/" },
     { name: "Umrah", href: "/umrah" },
     { name: "Hajj", href: "/hajj" },
     { name: "Quran", href: "/quran" },
-    { name: "Dashboard", href: "/dashboard" },
     { name: "About", href: "/about" },
 ];
 
@@ -21,6 +21,7 @@ export function Navbar() {
     const [isScrolled, setIsScrolled] = useState(false);
     const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
     const pathname = usePathname();
+    const { user } = useAuth();
 
     useEffect(() => {
         const handleScroll = () => {
@@ -74,11 +75,20 @@ export function Navbar() {
                     {/* Actions */}
                     <div className="hidden md:flex items-center gap-4">
                         <ThemeToggle />
-                        <Link href="/login">
-                            <Button variant="outline" size="sm" className="hover:bg-emerald-600 hover:text-white hover:border-emerald-600 transition-colors">
-                                Login
-                            </Button>
-                        </Link>
+                        {user ? (
+                            <Link href="/dashboard" className="flex items-center gap-2 text-foreground hover:text-primary transition-colors font-medium">
+                                <div className="w-8 h-8 rounded-full bg-primary/10 flex items-center justify-center text-primary">
+                                    <FaUser size={14} />
+                                </div>
+                                <span>{user.name}</span>
+                            </Link>
+                        ) : (
+                            <Link href="/login">
+                                <Button variant="outline" size="sm" className="hover:bg-emerald-600 hover:text-white hover:border-emerald-600 transition-colors">
+                                    Login
+                                </Button>
+                            </Link>
+                        )}
                     </div>
 
                     {/* Mobile Menu Button */}
@@ -116,7 +126,20 @@ export function Navbar() {
                                     {link.name}
                                 </Link>
                             ))}
-                            <Button className="w-full mt-2" onClick={() => setMobileMenuOpen(false)}>Login</Button>
+                            {user ? (
+                                <Link
+                                    href="/dashboard"
+                                    onClick={() => setMobileMenuOpen(false)}
+                                    className="flex items-center gap-2 border-t border-secondary/50 pt-4 mt-2"
+                                >
+                                    <div className="w-8 h-8 rounded-full bg-primary/10 flex items-center justify-center text-primary">
+                                        <FaUser size={14} />
+                                    </div>
+                                    <span className="font-medium text-foreground">{user.name}</span>
+                                </Link>
+                            ) : (
+                                <Button className="w-full mt-2" onClick={() => setMobileMenuOpen(false)}>Login</Button>
+                            )}
                         </nav>
                     </motion.div>
                 )}

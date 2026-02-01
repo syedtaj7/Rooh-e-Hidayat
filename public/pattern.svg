@@ -1,0 +1,48 @@
+<svg width="800" height="800" viewBox="0 0 800 800" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <!-- Repeating tile pattern - small scale for subtle effect -->
+    <pattern id="islamicPattern" x="0" y="0" width="200" height="200" patternUnits="userSpaceOnUse">
+      <g transform="translate(100, 100)">
+        <!-- 8-pointed star motif -->
+        <path d="M0,-40 L10,-15 L35,-15 L15,0 L25,25 L0,15 L-25,25 L-15,0 L-35,-15 L-10,-15 Z" 
+              fill="none" stroke="#C5A059" stroke-width="2.5" opacity="0.9"/>
+        
+        <!-- Surrounding smaller stars -->
+        <path d="M0,-20 L5,-10 L15,-10 L8,0 L15,10 L5,10 L0,20 L-5,10 L-15,10 L-8,0 L-15,-10 L-5,-10 Z" 
+              fill="none" stroke="#C5A059" stroke-width="2" opacity="0.85"/>
+        
+        <!-- Interlacing lines -->
+        <circle cx="0" cy="0" r="30" fill="none" stroke="#C5A059" stroke-width="2" opacity="0.8"/>
+        <circle cx="0" cy="0" r="45" fill="none" stroke="#C5A059" stroke-width="1.5" opacity="0.7"/>
+        
+        <!-- Geometric connecting lines -->
+        <path d="M-50,-50 L-30,-30 M50,-50 L30,-30 M50,50 L30,30 M-50,50 L-30,30" 
+              stroke="#C5A059" stroke-width="2" opacity="0.8"/>
+        
+        <!-- Corner motifs (partial visibility creates seamless tile) -->
+        <g transform="translate(-100, -100)">
+          <path d="M0,0 L20,15 L15,35 L0,20 Z" fill="none" stroke="#C5A059" stroke-width="2" opacity="0.85"/>
+        </g>
+        <g transform="translate(100, -100)">
+          <path d="M0,0 L-20,15 L-15,35 L0,20 Z" fill="none" stroke="#C5A059" stroke-width="2" opacity="0.85"/>
+        </g>
+        <g transform="translate(-100, 100)">
+          <path d="M0,0 L20,-15 L15,-35 L0,-20 Z" fill="none" stroke="#C5A059" stroke-width="2" opacity="0.85"/>
+        </g>
+        <g transform="translate(100, 100)">
+          <path d="M0,0 L-20,-15 L-15,-35 L0,-20 Z" fill="none" stroke="#C5A059" stroke-width="2" opacity="0.85"/>
+        </g>
+        
+        <!-- Additional decorative hexagon -->
+        <path d="M-25,-43.3 L25,-43.3 L50,0 L25,43.3 L-25,43.3 L-50,0 Z" 
+              fill="none" stroke="#C5A059" stroke-width="1.5" opacity="0.7"/>
+      </g>
+    </pattern>
+  </defs>
+  
+  <!-- Light beige/cream background -->
+  <rect width="800" height="800" fill="#F5F1E8"/>
+  
+  <!-- Apply the subtle pattern -->
+  <rect width="800" height="800" fill="url(#islamicPattern)"/>
+</svg>

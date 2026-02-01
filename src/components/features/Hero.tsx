@@ -55,7 +55,7 @@ export function Hero() {
     const opacity = useTransform(scrollYProgress, [0, 0.5], [1, 0]);
 
     return (
-        <div ref={ref} className="relative h-[90vh] flex items-center justify-center overflow-hidden bg-gradient-to-b from-slate-50 to-white">
+        <div ref={ref} className="relative h-[90vh] flex items-center justify-center overflow-hidden">
             {/* Background Elements */}
             <motion.div style={{ y, opacity }} className="absolute inset-0 z-0">
                 <div className="absolute top-10 right-[10%] opacity-80">

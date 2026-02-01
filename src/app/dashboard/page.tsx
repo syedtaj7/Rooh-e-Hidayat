@@ -1,11 +1,14 @@
 "use client";
 import React from "react";
 import { motion } from "framer-motion";
+import { useRouter } from "next/navigation";
 import { Section } from "@/components/ui/Section";
 import { Card } from "@/components/ui/Card";
+import { Button } from "@/components/ui/Button";
 import { FaBookOpen, FaMosque, FaCheckCircle } from "react-icons/fa";
 
 import { useProgress } from "@/context/progress-context";
+import { useAuth } from "@/context/auth-context";
 import { umrahSteps } from "@/data/umrah-steps";
 import { hajjSteps } from "@/data/hajj-steps";
 
@@ -54,6 +57,8 @@ const ProgressRing = ({ percentage, color, label }: { percentage: number; color:
 };
 
 export default function DashboardPage() {
+    const router = useRouter();
+    const { logout } = useAuth();
     const { visitedUmrahSteps, visitedHajjSteps, quranProgress } = useProgress();
 
     // Calculate percentages
@@ -61,7 +66,7 @@ export default function DashboardPage() {
     const hajjPercent = Math.min(100, Math.round((visitedHajjSteps.length / hajjSteps.length) * 100)) || 0;
 
     return (
-        <div className="min-h-screen pt-20 pb-20 bg-background transition-colors duration-500">
+        <div className="min-h-screen pt-20 pb-20 transition-colors duration-500">
             <Section>
                 {/* Welcome Header */}
                 <div className="mb-12">
@@ -118,6 +123,20 @@ export default function DashboardPage() {
                             </motion.div>
                         ))}
                     </div>
+                </div>
+
+                {/* Logout Action */}
+                <div className="mt-16 flex justify-center border-t border-secondary/30 pt-8">
+                    <Button
+                        variant="outline"
+                        onClick={() => {
+                            logout();
+                            router.push("/");
+                        }}
+                        className="text-red-500 hover:text-red-600 hover:bg-red-50 border-red-200 px-8"
+                    >
+                        Sign Out
+                    </Button>
                 </div>
             </Section>
         </div>

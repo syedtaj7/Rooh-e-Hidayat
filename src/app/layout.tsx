@@ -3,6 +3,7 @@ import { Inter, Amiri } from "next/font/google";
 import { Navbar } from "@/components/layout/Navbar";
 import { Footer } from "@/components/layout/Footer";
 import { ThemeProvider } from "@/components/ui/theme-provider";
+import { AuthProvider } from "@/context/auth-context";
 import { ProgressProvider } from "@/context/progress-context";
 import "./globals.css";
 
@@ -30,21 +31,24 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <body
-        className={`${inter.variable} ${amiri.variable} antialiased bg-background text-foreground flex flex-col min-h-screen`}
+        className={`${inter.variable} ${amiri.variable} antialiased bg-background text-foreground flex flex-col min-h-screen relative`}
       >
+        <div className="fixed inset-0 z-[-1] opacity-70 pointer-events-none" style={{ backgroundImage: "url('/pattern.svg')", backgroundSize: "800px 800px" }} />
         <ThemeProvider
           attribute="class"
           defaultTheme="system"
           enableSystem
           disableTransitionOnChange
         >
-          <ProgressProvider>
-            <Navbar />
-            <main className="flex-grow pt-20">
-              {children}
-            </main>
-            <Footer />
-          </ProgressProvider>
+          <AuthProvider>
+            <ProgressProvider>
+              <Navbar />
+              <main className="flex-grow pt-20">
+                {children}
+              </main>
+              <Footer />
+            </ProgressProvider>
+          </AuthProvider>
         </ThemeProvider>
       </body>
     </html>
